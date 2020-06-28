@@ -1,0 +1,8 @@
+{% extends '_message_base.html' %}
+
+
+{% block content %}
+<h4>{{message.event}}</h4>
+<p>{{message.message_body}}</p>
+<p> {{message.created_at}} </p>
+{% endblock content %}

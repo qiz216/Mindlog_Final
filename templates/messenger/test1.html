@@ -1,0 +1,7 @@
+Hi {{receiver}},
+Your sender is {{sender}},
+Your birthday is {{birthday}}
+Here are your most recent messages
+    {% for message in messages %}
+            <li>{{message}}</li>
+    {% endfor %}

@@ -1,0 +1,28 @@
+{% load crispy_forms_tags %}
+<div class="form-wrapper">
+<form action="{% url 'form_view' %}" method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" value="Submit">
+</form>
+</div>
+</div>
+
+<div class="guestbook">
+<h2>My Guestbook</h2>
+{% for entry in entries %}
+<div class="entry">
+<i class="fas fa-comment"></i>
+<div>
+    <span class="entry-name">- {{ entry.name }}</span>
+    <div class="message-footer">
+        <div class="entry-message">{{ entry.message }}</div>
+    <span class="entry-date">{{ entry.created_at }}</span>
+    </div>
+</div>
+</div>
+{% endfor %}
+</div>
+
+</div>
+</div>

@@ -1,0 +1,136 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BlogPost template by Adobe Dreamweaver CC</title>
+<link href="/static/css/blog.css" rel="stylesheet" type="text/css">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="description" content="A framework for launching new Django projects quickly.">
+<meta name="author" content="">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+<link rel="shortcut icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+<link rel="stylesheet" href="{% static 'css/base.css' %}">
+<!--The following script tag downloads a font from the Adobe Edge Web Fonts server for use within the web page. We recommend that you do not modify it.--><script>var __adobewebfontsappname__="dreamweaver"</script><script src="http://use.edgefonts.net/montserrat:n4:default;source-sans-pro:n2:default.js" type="text/javascript"></script>
+</head>
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+
+<!-- 3rd party JavaScript -->
+
+<!-- Project JS -->
+<script src="{% static 'js/base.js' %}"></script>
+<body>
+  <header> 
+    <!--**************************************************************************
+    Header starts here. It contains Logo and 3 navigation links. 
+    ****************************************************************************-->
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom shadow-sm">
+    <h5 class="my-0 mr-md-auto font-weight-normal">
+        <a href="{% url 'home' %}">Mindful</a>
+      </h5>
+    <nav class="my-2 my-md-0 mr-md-3">
+        {% if user.is_authenticated %}
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link dropdown-toggle" href="#" id="userMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="color: black;">
+              {{ user.email }}
+            </a>
+            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="userMenu">
+              <a class="dropdown-item" href="{% url 'account_change_password' %}">Change password</a>
+              <div class="dropdown-divider"></div>
+              <a class="dropdown-item" href="{% url 'account_logout' %}">Log out</a>
+            </div>
+          </li>
+        </ul>
+        {% else %}
+        <form class="form-inline ml-auto">
+          <a href="{% url 'account_login' %}" class="btn btn-outline-secondary">Log in</a>
+          <a href="{% url 'account_signup' %}" class="btn btn-primary ml-2">Sign up</a>
+        </form>
+        {% endif %}
+      </nav>
+  </header>
+<div id="mainwrapper">
+  <div id="content">
+    <div class="notOnDesktop"> 
+      <!-- This search box is displayed only in mobile and tablet laouts and not in desktop layouts -->
+      <input type="text" placeholder="Search">
+    </div>
+    <section id="mainContent"> 
+      <!--************************************************************************
+    Main Blog content starts here
+    ****************************************************************************-->
+      <h1><!-- Blog title -->{{username}}'s Mindful Space</h1>
+      <h3><!-- Tagline -->Listen as your day unfolds, chanllenge what the future holds</h3>
+      <div id="bannerImage"><img src="/static/images/ocean.jpg" alt="" width="891" height="378"/></div>
+
+<div class="form-wrapper">
+{% load crispy_forms_tags %}
+<form action="{% url 'blog' %}" method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+    <input type="submit" value="Submit">
+</form>
+</div>
+	<section id="subContent"> 
+    {% for message in messages %}
+        <div style="background-color:{{message.sentiment_color}}">
+          {% block content %}
+
+          {% endblock content %}
+        </div>
+    {% endfor %}
+</section>
+    </section>
+    <section id="sidebar"> 
+      <!--************************************************************************
+    Sidebar starts here. It contains a searchbox, sample ad image and 6 links
+    ****************************************************************************-->
+      <input type="text" id="searchBlog" onkeyup="searchContent()" placeholder="Search">
+      <div id="adimage"><img src="{{image_tag}}" alt=""/></div>
+      <nav>
+        <ul>
+		  <li><a href="/blog" title="Link">Blogs</a></li>
+      <li><a href="/thought" title="Link">Thoughts</a></li>
+          <li><a href="/reminder" title="Link">Reminder</a></li>
+          <li><a href="/calender" title="Link">Calender</a></li>
+        </ul>
+      </nav>
+    </section>
+    <footer> 
+      <!--************************************************************************
+    Footer starts here
+    ****************************************************************************-->
+      <article>
+        <p>Copyright © 2020-2030 Mindful.co</p>
+		<p>Email: qi@mindful.com</p>
+      </article>
+    </footer>
+  </div>
+  <div id="footerbar"><!-- Small footerbar at the bottom --></div>
+</div>
+	
+<script>
+function searchContent() {
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById("searchBlog");
+    filter = input.value.toUpperCase();
+    content = document.getElementById("subContent");
+	blogs = content.getElementsByTagName("div")
+    for (i = 0; i < blogs.length; i++) {
+        txtValue =  blogs[i].textContent || blogs[i].innerText;
+        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+            blogs[i].style.display = "";
+        } else {
+            blogs[i].style.display = "none";
+        }
+    }
+}
+</script>
+
+</body>
+</html>

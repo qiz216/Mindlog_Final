@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+
+
+
+{% block title %}
+    Reflections 
+{% endblock title %}
+
+
+{% block content %}
+    Here are your messages
+    {% for message in messages %}
+        <div>
+            <h2>{{message}}</h2>
+        </div>
+    {% endfor %}
+{% endblock content %}
+    

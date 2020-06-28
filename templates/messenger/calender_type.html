@@ -1,0 +1,12 @@
+{% extends '_calender_base.html' %}
+
+
+{% block content %}
+<tr>
+    <td>{{message.message_body}}</td>
+    <td>{{message.event}}</td>
+    <td>{{message.time_start}}</td>
+    <td>{{message.time_end}}</td>
+    <td>{{message.location}}</td>
+</tr>
+{% endblock content %}

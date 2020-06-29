@@ -99,18 +99,18 @@ TEMPLATES = [
 # DATABASES
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-'''DATABASES = {
+DATABASES = {
    'default': {
        'ENGINE': 'django.db.backends.sqlite3',
        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
   }
-}'''
+}
 # DATABASES
 # Put credentials in environment
 # Free version has 256 MB storage. https://www.clever-cloud.com/en/pricing
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
-
+'''
 DATABASES = {
     'default': {
         'CONN_MAX_AGE': 0,  # disconnect every end of requests
@@ -121,7 +121,7 @@ DATABASES = {
         'HOST': os.environ['DATABASE_HOST'],
        'PORT': os.environ['DATABASE_PORT'],
     }
-}
+}'''
 # PASSWORDS
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators

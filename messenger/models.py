@@ -29,20 +29,20 @@ class Sender(models.Model):
 class Message(models.Model):
     """Message sent from Sender or replied from Receiver."""
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=255, blank=True)
+    name = models.CharField(max_length=255, blank=True, null=True)
     message = models.TextField()
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='messages', on_delete=models.CASCADE, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     tag = models.CharField(max_length=100,  choices = MSG_TAG_CHOICES, default = 'thoughts')
     sentiment = models.CharField(max_length=100,  choices = SENTIMENT_CHOICES, default = 'neutral')
     created_at = models.DateTimeField(default=datetime.now)
-    twilio_msg_sid = models.CharField(max_length=100, blank=True)
+    twilio_msg_sid = models.CharField(max_length=100, blank=True, null=True)
     deleted = models.BooleanField(default=False)
-    deleted_at = models.DateTimeField(blank = True)
-    location = models.CharField(max_length=200, blank = True)
-    time_start = models.DateTimeField(blank=True)
-    time_end = models.DateTimeField(blank=True)
-    event = models.CharField(max_length=200, blank = True)
+    deleted_at = models.DateTimeField(blank = True, null=True)
+    location = models.CharField(max_length=200, blank = True, null=True)
+    time_start = models.DateTimeField(blank=True, null=True)
+    time_end = models.DateTimeField(blank=True, null=True)
+    event = models.CharField(max_length=200, blank = True, null=True)
 
     def __str__(self):
         return self.message

@@ -10,6 +10,8 @@ class MessageSerializer(serializers.ModelSerializer):
         read_only_fields = ['id', 'created_at']
 
     def create(self, validated_data):
+        if 'name' not in validated_data:
+            validated_data['name'] = ''
         wit = wit_analysis(validated_data['name'], validated_data['message'])
         wit_attr = wit.get_attributes()
         for field in ['tag', 'sentiment', 'location', 'time_start', 'time_end', 'event']:

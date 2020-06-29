@@ -2,6 +2,7 @@ from django.shortcuts import render, get_object_or_404
 from django.forms.models import model_to_dict
 from django.db.models import Q
 import json
+from datetime import datetime
 from django.core.serializers.json import DjangoJSONEncoder
 from rest_framework.decorators import action
 # query from messenger app
@@ -39,7 +40,7 @@ class MessageViewSet(viewsets.ModelViewSet):
         A message will not be deleted in database.
         We will set the "delete" flag from false to true.
         """
-        Message.objects.filter(id = kwargs['pk']).update(deleted = True)
+        Message.objects.filter(id = kwargs['pk']).update(deleted = True, deleted_at = datetime.now())
         return Response(status=status.HTTP_204_NO_CONTENT)
 
 @action(detail=True, methods=['get','patch'])
@@ -50,7 +51,7 @@ class UserViewSet(viewsets.ModelViewSet):
     ]
     serializer_class = CustomUserSerializer
     def get_queryset(self):
-        return CustomUser.objects.filter(id = self.request.user.id).all()    
+        return CustomUser.objects.filter().all()    
 
 ## send messages
 class SendMessageView(APIView):

@@ -9,6 +9,7 @@ export class Register extends Component {
   state = {
     username: "",
     email: "",
+    phone: "",
     password: "",
     password2: "",
   };
@@ -20,7 +21,7 @@ export class Register extends Component {
 
   onSubmit = (e) => {
     e.preventDefault();
-    const { username, email, password, password2 } = this.state;
+    const { username, email, phone, password, password2 } = this.state;
     if (password !== password2) {
       this.props.createPrompt({
         passwordNotMatched: "Passwords do not match.",
@@ -29,6 +30,7 @@ export class Register extends Component {
       const newUser = {
         username,
         email,
+        phone,
         password,
       };
       this.props.register(newUser);
@@ -41,7 +43,7 @@ export class Register extends Component {
       return <Redirect to="/" />;
     }
 
-    const { username, email, password, password2 } = this.state;
+    const { username, email, phone, password, password2 } = this.state;
     return (
       <div className="col-md-6 m-auto">
         <div className="card card-body mt-5">
@@ -65,6 +67,16 @@ export class Register extends Component {
                 name="email"
                 onChange={this.onChange}
                 value={email}
+              />
+            </div>
+            <div className="form-group">
+              <label>Phone (start with +1)</label>
+              <input
+                type="phone"
+                className="form-control"
+                name="phone"
+                onChange={this.onChange}
+                value={phone}
               />
             </div>
             <div className="form-group">

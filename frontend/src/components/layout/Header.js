@@ -26,6 +26,11 @@ export class Header extends Component {
             Logout
           </button>
         </li>
+        <li className="nav-item">
+          <Link to="/calendar" className="nav-link">
+            Choose Calendar
+          </Link>
+        </li>
       </ul>
     );
 

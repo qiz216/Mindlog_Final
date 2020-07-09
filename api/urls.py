@@ -5,6 +5,7 @@ from rest_framework.routers import DefaultRouter
 router = DefaultRouter()
 router.register(r'messages', MessageViewSet, basename='messages')
 router.register(r'users', UserViewSet, basename='user')
+router.register(r'scheduler', SchedulerViewSet, basename='scheduler')
 urlpatterns = router.urls
 
 ## self defined

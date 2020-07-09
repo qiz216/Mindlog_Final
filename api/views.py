@@ -56,15 +56,6 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return CustomUser.objects.filter().all()    
 
-@action(detail=True, methods=['get','patch','post'])
-class UserViewSet(viewsets.ModelViewSet):
-    ## query set
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
-    serializer_class = SchedulerSerializer
-    def get_queryset(self):
-        return Scheduler.objects.filter().all()
 
 ## send messages just for testing
 class SendMessageView(APIView):
@@ -98,3 +89,14 @@ class TwilioAPI(APIView):
             result = 'success'
             return Response('', status=status.HTTP_201_CREATED, content_type="text/xml")
         return Response('', status=status.HTTP_400_BAD_REQUEST, content_type="text/xml")
+
+
+@action(detail=True, methods=['get','patch','post'])
+class SchedulerViewSet(viewsets.ModelViewSet):
+    ## query set
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+    serializer_class = SchedulerSerializer
+    def get_queryset(self):
+        return Scheduler.objects.filter().all()

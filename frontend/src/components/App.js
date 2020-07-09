@@ -12,7 +12,7 @@ import AlertTemplate from "react-alert-template-basic";
 
 import Header from "./layout/Header";
 import Dashboard from "./messages/Dashboard";
-import Calendar from "./messages/Calendar";
+import Profile from "./profile/Profile";
 import Login from "./users/Login";
 import Register from "./users/Register";
 import Alerts from "./layout/Alerts";
@@ -42,7 +42,7 @@ class App extends Component {
               <div className="container">
                 <Switch>
                   <PrivateRoute exact path="/" component={Dashboard} />
-                  <PrivateRoute exact path="/calendar" component={Calendar} />
+                  <PrivateRoute exact path="/profile" component={Profile} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />
                 </Switch>

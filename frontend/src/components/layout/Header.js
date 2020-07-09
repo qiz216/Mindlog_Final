@@ -27,8 +27,8 @@ export class Header extends Component {
           </button>
         </li>
         <li className="nav-item">
-          <Link to="/calendar" className="nav-link">
-            Choose Calendar
+          <Link to="/profile" className="nav-link">
+            Profile Page
           </Link>
         </li>
       </ul>

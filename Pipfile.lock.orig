@@ -1,5 +1,7 @@
-
-
+{
+    "_meta": {
+        "hash": {
+<<<<<<< HEAD
             "sha256": "991be4c462d053b130d24c2a6f90d3ab8a9d76554e5509e804acd953d0023428"
 =======
             "sha256": "a00d99fef58bae8361106917e84a13829daf8a035c54a19afb6c9ff81c50c2a7"

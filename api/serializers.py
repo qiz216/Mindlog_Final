@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from messenger.models import *
 from users.models import *
+from scheduler.models import *
 
 class MessageSerializer(serializers.ModelSerializer):
     class Meta:
@@ -25,4 +26,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
         fields = ('id', 'username', 'gender', 'birthday', 'phone', 'state', 'city', 
         'photo', 'email', 'favorite_artist', 'favorite_song', 'favorite_show',
         'favorite_movie','favorite_color', 'sender')
+        read_only_fields = ['id']
+
+
+class SchedulerSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Schedule
+        fields = ('id', 'owner', 'schedule_time', 'topic')
         read_only_fields = ['id']

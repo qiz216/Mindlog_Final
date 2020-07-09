@@ -46,12 +46,12 @@ class twilio_msg():
         :param sender: Sender
         :return: A customized message string
         """
-        return "Hi {}, it's {}! What up with you? How's the weather in {}?".format(user.username,
+        return "Hi {}, it's {}! What's up with you? How's the weather in {}? Don't forget to relax and write something today.".format(user.username,
                                                                                    sender.nickname,
                                                                                    user.state) # customize the message, should add more customization in the future
 
     @staticmethod
-    def send_msg(user):
+    def send_msg(user, message = ''):
         """
         Send a greeting message
         :param request:
@@ -65,7 +65,10 @@ class twilio_msg():
             return 'Currently no available Sender from our server'
 
         ## send message
-        message_to_broadcast = twilio_msg.customize_msg(user, sender)
+        if message == '':
+            message_to_broadcast = twilio_msg.customize_msg(user, sender)
+        else:
+            message_to_broadcast = message
         client = Client(sender.twilio_sid, sender.twilio_token) # create client object
         try:
             response = client.messages.create(to = str(user.phone),

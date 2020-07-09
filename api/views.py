@@ -5,12 +5,14 @@ import json
 from datetime import datetime
 from django.core.serializers.json import DjangoJSONEncoder
 from rest_framework.decorators import action
+from django.utils import timezone
 # query from messenger app
 from messenger.twilio_msg import twilio_msg
 # Create your views here.
 from .serializers import *
 from users.models import *
 from messenger.models import *
+from scheduler.models import *
 from rest_framework import viewsets, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -40,8 +42,9 @@ class MessageViewSet(viewsets.ModelViewSet):
         A message will not be deleted in database.
         We will set the "delete" flag from false to true.
         """
-        Message.objects.filter(id = kwargs['pk']).update(deleted = True, deleted_at = datetime.now())
+        Message.objects.filter(id = kwargs['pk']).update(deleted = True, deleted_at = timezone.now())
         return Response(status=status.HTTP_204_NO_CONTENT)
+    ## patch/post
 
 @action(detail=True, methods=['get','patch'])
 class UserViewSet(viewsets.ModelViewSet):
@@ -53,7 +56,17 @@ class UserViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return CustomUser.objects.filter().all()    
 
-## send messages
+@action(detail=True, methods=['get','patch','post'])
+class UserViewSet(viewsets.ModelViewSet):
+    ## query set
+    permission_classes = [
+        permissions.IsAuthenticated,
+    ]
+    serializer_class = SchedulerSerializer
+    def get_queryset(self):
+        return Scheduler.objects.filter().all()
+
+## send messages just for testing
 class SendMessageView(APIView):
     def post(self, request, format=None):
         result = twilio_msg.send_msg(request.user)

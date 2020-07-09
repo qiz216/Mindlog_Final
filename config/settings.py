@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'rest_auth',
     'rest_framework.authtoken',
     'knox',
+    "django_apscheduler",
 
     # other
     'phonenumber_field', ## for phone number field
@@ -50,6 +51,7 @@ INSTALLED_APPS = [
     'api',
     'messenger',
     'frontend',
+    'scheduler',
 ]
 
 # MIDDLEWARE
@@ -146,7 +148,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/dev/ref/settings/#language-code
 LANGUAGE_CODE = 'en-us'
 # https://docs.djangoproject.com/en/dev/ref/settings/#time-zone
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Los_Angeles'
 # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-USE_I18N
 USE_I18N = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#use-l10n
@@ -260,3 +262,18 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = os.environ['EMAIL_USER']
 EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASSWORD']
+
+# Scheduler
+# This scheduler config will:
+# - Store jobs in the project database
+# - Execute jobs in threads inside the application process
+SCHEDULER_CONFIG = {
+    "apscheduler.jobstores.default": {
+        "class": "django_apscheduler.jobstores:DjangoJobStore"
+    },
+    'apscheduler.executors.processpool': {
+        "type": "threadpool"
+    },
+}
+SCHEDULER_AUTOSTART = True
+APSCHEDULER_DATETIME_FORMAT =  "N j, Y, f:s a"  # Default

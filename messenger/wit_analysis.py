@@ -1,7 +1,7 @@
 import requests
 import os
 from datetime import datetime
-
+from django.utils import timezone
 class wit_analysis():
     """
     a class that can do analysis for messages using wit api
@@ -17,7 +17,8 @@ class wit_analysis():
             self.result = {'text': '','intents': [],'entities': {},'traits': {}}
 
     def time_format(self, time):
-        return datetime.strptime(time.split('.')[0],'%Y-%m-%dT%H:%M:%S')
+        local_time = datetime.strptime(time.split('.')[0],'%Y-%m-%dT%H:%M:%S')
+        return local_time
 
     def get_tag(self):
         """

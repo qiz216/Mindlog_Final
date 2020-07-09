@@ -44,6 +44,8 @@ Pillow = "==7.1.2"
 Babel = "==2.8.0"
 PyJWT = "==1.7.1"
 django-rest-knox = "*"
+apscheduler = "*"
+django-apscheduler = "*"
 
 [requires]
 python_version = "3.7"

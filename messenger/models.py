@@ -9,6 +9,7 @@ from .wit_analysis import wit_analysis
 import os
 from uuid import uuid4
 from django.conf import settings
+from django.utils import timezone
 
 class Sender(models.Model):
     """
@@ -21,7 +22,7 @@ class Sender(models.Model):
     twilio_token = models.CharField(max_length=100)
     phone = PhoneNumberField()
     state = models.CharField(max_length=100, choices = STATE_CHOICES, default = 'NY')
-    created_at = models.DateTimeField(default=datetime.now)
+    created_at = models.DateTimeField(default=timezone.now)
     msg_sent = models.IntegerField(default=0)
     def __str__(self):
         return self.nickname
@@ -32,10 +33,9 @@ class Message(models.Model):
     name = models.CharField(max_length=255, blank=True, null=True)
     message = models.TextField()
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, related_name='messages', on_delete=models.CASCADE, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(default=timezone.now)
     tag = models.CharField(max_length=100,  choices = MSG_TAG_CHOICES, default = 'thoughts')
     sentiment = models.CharField(max_length=100,  choices = SENTIMENT_CHOICES, default = 'neutral')
-    created_at = models.DateTimeField(default=datetime.now)
     twilio_msg_sid = models.CharField(max_length=100, blank=True, null=True)
     deleted = models.BooleanField(default=False)
     deleted_at = models.DateTimeField(blank = True, null=True)
@@ -46,3 +46,4 @@ class Message(models.Model):
 
     def __str__(self):
         return self.message
+

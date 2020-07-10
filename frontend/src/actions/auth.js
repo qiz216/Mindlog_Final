@@ -9,6 +9,7 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  EDIT_USER,
 } from "./types";
 
 //check token and login user
@@ -27,6 +28,19 @@ export const loadUser = () => (dispatch, getState) => {
         type: AUTH_ERROR,
       });
     });
+};
+export const editUser = () => (dispatch, getState) => {
+  const body = JSON.stringify({ username: "james" });
+  axios
+    .patch(`/api/auth/user`, body, tokenConfig(getState))
+    .then((res) => {
+      console.log(res);
+      dispatch({
+        type: EDIT_USER,
+        payload: id,
+      });
+    })
+    .catch((err) => console.log(err));
 };
 
 //login user

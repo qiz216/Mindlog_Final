@@ -1,20 +1,19 @@
 import React, { Component, Fragment } from "react";
-import TimePicker from "react-time-picker";
 import TimeSelector from "./TimeSelector";
+import ProfileChanger from "./ProfileChanger";
 export class Profile extends Component {
-  state = {
-    time: "23:00",
-  };
-
   onChange = (time) => this.setState({ time });
 
   render() {
     return (
       <Fragment>
+        Change your profile here.
+        <div>
+          <ProfileChanger />
+        </div>
         <div>
           <TimeSelector />
         </div>
-        <div>Profile Component</div>
       </Fragment>
     );
   }

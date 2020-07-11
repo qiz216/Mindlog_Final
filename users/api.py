@@ -39,7 +39,7 @@ class LoginAPI(generics.GenericAPIView):
 # get user api
 
 
-class UserAPI(generics.UpdateAPIView):
+class UserAPI(generics.RetrieveUpdateAPIView):
     permission_classes = [
         permissions.IsAuthenticated,
     ]

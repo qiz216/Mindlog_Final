@@ -7,12 +7,13 @@ export class Profile extends Component {
   render() {
     return (
       <Fragment>
-        Change your profile here.
         <div>
-          <ProfileChanger />
-        </div>
-        <div>
-          <TimeSelector />
+          <div>
+            <TimeSelector />
+          </div>
+          <div>
+            <ProfileChanger />
+          </div>
         </div>
       </Fragment>
     );

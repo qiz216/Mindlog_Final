@@ -1,5 +1,5 @@
 import axios from "axios";
-import { returnErrors } from "./prompts";
+import { createPrompt, returnErrors } from "./prompts";
 import {
   USER_LOADED,
   USER_LOADING,
@@ -35,10 +35,23 @@ export const editUser = (new_info) => (dispatch, getState) => {
   axios
     .patch(`/api/auth/user`, new_info, tokenConfig(getState))
     .then((res) => {
-      console.log(res);
-      //dispatch stuff here
+      //console.log("CREATE PROMPT");
+      //dispatch(createPrompt({ editUser: "Info Updated" }));
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+      });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => {
+      console.log(err);
+
+      dispatch(returnErrors(err.response.data, err.response.status));
+      /*
+      dispatch({
+        type: AUTH_ERROR,
+      });
+      */
+    });
 };
 
 //login user

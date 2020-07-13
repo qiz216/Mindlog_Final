@@ -10,6 +10,7 @@ export class ProfileChanger extends Component {
   };
   static propTypes = {
     auth: PropTypes.object.isRequired,
+    editUser: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -29,17 +30,16 @@ export class ProfileChanger extends Component {
       );
       const new_info = { username: new_username, email: new_email };
       this.props.editUser(new_info);
-      window.location.reload(false);
+      //window.location.reload(false);
     } else if (new_username) {
       console.log(`The new username is ${new_username}`);
       const new_info = { username: new_username };
       this.props.editUser(new_info);
-      window.location.reload(false);
+      //window.location.reload(false);
     } else if (new_email) {
       console.log(`The new username is ${new_email}`);
       const new_info = { email: new_email };
       this.props.editUser(new_info);
-      window.location.reload(false);
     } else {
       console.log("Throw error, neither is changed");
     }
@@ -49,16 +49,6 @@ export class ProfileChanger extends Component {
     const { user } = this.props.auth;
     return (
       <div>
-        <div>
-          <strong>{`This is your username: ${user.username}`}</strong>
-          <br />
-          <button
-            className="btn btn-danger btn-sm"
-            onClick={this.props.editUser}
-          >
-            Edit Username
-          </button>
-        </div>
         <div className="card card-body mt-4 mb-4">
           <h2>Change your profile information!</h2>
           <form onSubmit={this.onSubmit}>

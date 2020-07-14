@@ -31,7 +31,7 @@ export const loadUser = () => (dispatch, getState) => {
 };
 export const editUser = (new_info) => (dispatch, getState) => {
   //const body = JSON.stringify({ username: "james" });
-  console.log(new_info);
+  //console.log(new_info);
   axios
     .patch(`/api/auth/user`, new_info, tokenConfig(getState))
     .then((res) => {
@@ -123,6 +123,7 @@ export const register = ({ username, email, phone, password }) => (
       });
     })
     .catch((err) => {
+      console.log(err);
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
         type: REGISTER_FAIL,

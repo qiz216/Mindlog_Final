@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from "react";
 import "antd/dist/antd.css";
-import { TimePicker, Button } from "antd";
+import { TimePicker } from "antd";
 
 export function TimeSelector() {
   const [times, setTimes] = useState([]);

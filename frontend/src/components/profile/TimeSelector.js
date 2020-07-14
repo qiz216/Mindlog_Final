@@ -1,6 +1,11 @@
 import React, { useState, Fragment } from "react";
 import "antd/dist/antd.css";
 import { TimePicker } from "antd";
+//import { addTime } from "../../actions/times";
+import { connect } from "react-redux";
+import axios from "axios";
+import { tokenConfig } from "../../actions/auth";
+import store from "../../store";
 
 export function TimeSelector() {
   const [times, setTimes] = useState([]);
@@ -11,8 +16,24 @@ export function TimeSelector() {
   //functionality for the scheduler.
 
   function onChange(time, timeString) {
+    const new_time = { schedule_time: timeString };
+    axios
+      .post("/api/scheduler/", new_time, tokenConfig(store.getState))
+      .then((res) => {
+        console.log(res.data);
+        dispatch({
+          type: ADD_TIME,
+          payload: res.data,
+        });
+      })
+      .catch(
+        (err) => console.log(err)
+        //dispatch(returnErrors(err.response.data, err.response.status))
+      );
+    //console.log(timeString);
     setTimes([...times, timeString]);
   }
+
   function handleDelete(idx) {
     const new_times = times.filter((time, id) => id !== idx);
     console.log(`ID to delete is ${idx}`);
@@ -61,5 +82,8 @@ export function TimeSelector() {
     </Fragment>
   );
 }
+const mapStateToProps = (state) => ({
+  auth: state.authReducer,
+});
 
-export default TimeSelector;
+export default connect(mapStateToProps)(TimeSelector);

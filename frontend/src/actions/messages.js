@@ -34,6 +34,7 @@ export const deleteMessage = (id) => (dispatch, getState) => {
 
 //ADD MESSAGES
 export const addMessage = (message) => (dispatch, getState) => {
+  //console.log(message);
   axios
     .post("/api/messages/", message, tokenConfig(getState))
     .then((res) => {

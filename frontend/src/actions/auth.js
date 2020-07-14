@@ -1,5 +1,5 @@
 import axios from "axios";
-import { returnErrors } from "./prompts";
+import { createPrompt, returnErrors } from "./prompts";
 import {
   USER_LOADED,
   USER_LOADING,
@@ -9,6 +9,7 @@ import {
   LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
   REGISTER_FAIL,
+  EDIT_USER,
 } from "./types";
 
 //check token and login user
@@ -26,6 +27,30 @@ export const loadUser = () => (dispatch, getState) => {
       dispatch({
         type: AUTH_ERROR,
       });
+    });
+};
+export const editUser = (new_info) => (dispatch, getState) => {
+  //const body = JSON.stringify({ username: "james" });
+  //console.log(new_info);
+  axios
+    .patch(`/api/auth/user`, new_info, tokenConfig(getState))
+    .then((res) => {
+      //console.log("CREATE PROMPT");
+      //dispatch(createPrompt({ editUser: "Info Updated" }));
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+
+      dispatch(returnErrors(err.response.data, err.response.status));
+      /*
+      dispatch({
+        type: AUTH_ERROR,
+      });
+      */
     });
 };
 
@@ -76,7 +101,9 @@ export const logout = () => (dispatch, getState) => {
 
 //register user
 
-export const register = ({ username, email, password }) => (dispatch) => {
+export const register = ({ username, email, phone, password }) => (
+  dispatch
+) => {
   //Headers
   const config = {
     headers: {
@@ -85,7 +112,7 @@ export const register = ({ username, email, password }) => (dispatch) => {
   };
 
   //Request Body
-  const body = JSON.stringify({ username, email, password });
+  const body = JSON.stringify({ username, email, phone, password });
 
   axios
     .post("/api/auth/register", body, config)
@@ -96,6 +123,7 @@ export const register = ({ username, email, password }) => (dispatch) => {
       });
     })
     .catch((err) => {
+      console.log(err);
       dispatch(returnErrors(err.response.data, err.response.status));
       dispatch({
         type: REGISTER_FAIL,
@@ -108,11 +136,31 @@ export const register = ({ username, email, password }) => (dispatch) => {
 export const tokenConfig = (getState) => {
   //get token
   const token = getState().authReducer.token;
+  //console.log(token);
 
   //Headers
   const config = {
     headers: {
       "Content-Type": "application/json",
+    },
+  };
+
+  if (token) {
+    config.headers["Authorization"] = `Token ${token}`;
+  }
+
+  return config;
+};
+
+export const tokenConfig2 = (getState) => {
+  //get token
+  const token = getState().authReducer.token;
+  //console.log(token);
+
+  //Headers
+  const config = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
     },
   };
 

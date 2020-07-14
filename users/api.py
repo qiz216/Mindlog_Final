@@ -4,12 +4,13 @@ from knox.models import AuthToken
 from .serializers import UserSerializer, RegisterSerializer, LoginSerializer
 
 
-#register api
+# register api
 class RegisterAPI(generics.GenericAPIView):
-    serializer_class= RegisterSerializer
+    serializer_class = RegisterSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer= self.get_serializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
+        print(request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.save()
         _, token = AuthToken.objects.create(user)
@@ -19,14 +20,14 @@ class RegisterAPI(generics.GenericAPIView):
         })
 
 
-#login api
+# login api
 
 class LoginAPI(generics.GenericAPIView):
 
     serializer_class = LoginSerializer
 
     def post(self, request, *args, **kwargs):
-        serializer= self.get_serializer(data=request.data)
+        serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         user = serializer.validated_data
         _, token = AuthToken.objects.create(user)
@@ -35,9 +36,10 @@ class LoginAPI(generics.GenericAPIView):
             "token": token
         })
 
-#get user api
+# get user api
 
-class UserAPI(generics.RetrieveAPIView):
+
+class UserAPI(generics.RetrieveUpdateAPIView):
     permission_classes = [
         permissions.IsAuthenticated,
     ]

@@ -26,6 +26,11 @@ export class Header extends Component {
             Logout
           </button>
         </li>
+        <li className="nav-item">
+          <Link to="/profile" className="nav-link">
+            Profile Page
+          </Link>
+        </li>
       </ul>
     );
 

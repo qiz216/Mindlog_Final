@@ -39,7 +39,7 @@ export default function (state = initialState, action) {
         isAuthenticated: true,
         isLoading: false,
       };
-    //both do the same thing
+    //all do the same thing
     case AUTH_ERROR:
     case LOGIN_FAIL:
     case LOGOUT_SUCCESS:

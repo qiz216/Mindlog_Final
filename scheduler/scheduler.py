@@ -25,10 +25,8 @@ def greeting_job():
     print(timezone.localtime())
     start = (now - timedelta(minutes=5)).time()
     end = (now + timedelta(minutes=5)).time()
-    print("WE MADE IT 2")
     schedules = Schedule.objects.filter(
         schedule_time__range=(start, end)).all()  #
-    print("WE MADE IT 3")
     for sche in schedules:
         print('y')
         x = twilio_msg.send_msg(sche.owner)
@@ -43,7 +41,7 @@ def start():
         logging.getLogger('apscheduler').setLevel(logging.DEBUG)
 
     scheduler.add_job(greeting_job, "cron", id="send_post",
-                      minute='0,12,13,14,15,16,52,53,54,55,56,57,58,59', replace_existing=True)
+                      minute='0,12,13,14,15,16,51,52,53,54,55,56,57', replace_existing=True)
     # Add the scheduled jobs to the Django admin interface
     register_events(scheduler)
     scheduler.start()

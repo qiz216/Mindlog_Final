@@ -16,7 +16,8 @@ export function TimeSelector() {
   //functionality for the scheduler.
 
   function onChange(time, timeString) {
-    const new_time = { schedule_time: timeString };
+    console.log(time.format("H:mm"));
+    const new_time = { schedule_time: time.format("H:mm") };
     axios
       .post("/api/scheduler/", new_time, tokenConfig(store.getState))
       .then((res) => {

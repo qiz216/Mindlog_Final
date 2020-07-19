@@ -105,7 +105,7 @@ class SchedulerViewSet(viewsets.ModelViewSet):
     serializer_class = SchedulerSerializer
 
     def get_queryset(self):
-        return Scheduler.objects.filter().all()
+        return Schedule.objects.filter().all()
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

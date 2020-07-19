@@ -35,6 +35,9 @@ export class Alerts extends Component {
       if (prompt.passwordNotMatched) {
         alert.error(prompt.passwordNotMatched);
       }
+      if (prompt.addTime) {
+        alert.success(prompt.addTime);
+      }
     }
   }
   render() {

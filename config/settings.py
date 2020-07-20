@@ -7,11 +7,12 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SECRET_KEY
 
 
-SECRET_KEY=os.environ["SECRET_KEY"]
+SECRET_KEY = os.environ["SECRET_KEY"]
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
-ALLOWED_HOSTS = ["localhost", "0.0.0.0", "127.0.0.1",'louischoki.pythonanywhere.com']
+ALLOWED_HOSTS = ["localhost", "0.0.0.0",
+                 "127.0.0.1", 'louischoki.pythonanywhere.com']
 
 # APPS
 # ------------------------------------------------------------------------------
@@ -30,7 +31,7 @@ INSTALLED_APPS = [
     'allauth',
     'allauth.account',
     'crispy_forms',
-    'debug_toolbar',
+    # 'debug_toolbar',
     'twilio',
     'corsheaders',
     'rest_framework',
@@ -40,10 +41,10 @@ INSTALLED_APPS = [
     "django_apscheduler",
 
     # other
-    'phonenumber_field', ## for phone number field
+    'phonenumber_field',  # for phone number field
     'phonenumbers',
-    'psycopg2', ## connect to postgres
-    'storages', ## add storage
+    'psycopg2',  # connect to postgres
+    'storages',  # add storage
     'boto3',
 
     # Local
@@ -63,7 +64,7 @@ MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    # 'debug_toolbar.middleware.DebugToolbarMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
@@ -102,10 +103,10 @@ TEMPLATES = [
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#databases
 DATABASES = {
-   'default': {
-       'ENGINE': 'django.db.backends.sqlite3',
-       'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 # DATABASES
 # Put credentials in environment
@@ -161,7 +162,7 @@ USE_TZ = True
 # ------------------------------------------------------------------------------
 # free version has 100mb storage https://www.clever-cloud.com/en/pricing
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
-## CREDENTIALS
+# CREDENTIALS
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
 AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
 AWS_STORAGE_BUCKET_NAME = os.environ["AWS_STORAGE_BUCKET_NAME"]
@@ -223,10 +224,10 @@ ACCOUNT_UNIQUE_EMAIL = True
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES':[
+    'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
-    'DEFAULT_AUTHENTICATION_CLASSES': 
+    'DEFAULT_AUTHENTICATION_CLASSES':
     ('knox.auth.TokenAuthentication',)
 }
 
@@ -236,10 +237,10 @@ CORS_ORIGIN_WHITELIST = (
 )
 
 
-CORS_ORIGIN_ALLOW_ALL = True   
+CORS_ORIGIN_ALLOW_ALL = True
 
 
-## Image Resize
+# Image Resize
 DJANGORESIZED_DEFAULT_SIZE = [300, 250]
 DJANGORESIZED_DEFAULT_QUALITY = 80
 DJANGORESIZED_DEFAULT_KEEP_META = True
@@ -248,7 +249,7 @@ DJANGORESIZED_DEFAULT_KEEP_META = True
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
 
-CORS_ORIGIN_ALLOW_ALL = True   
+CORS_ORIGIN_ALLOW_ALL = True
 CSRF_COOKIE_NAME = "XSRF-TOKEN"
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = False
@@ -276,4 +277,4 @@ SCHEDULER_CONFIG = {
     },
 }
 SCHEDULER_AUTOSTART = True
-APSCHEDULER_DATETIME_FORMAT =  "N j, Y, f:s a"  # Default
+APSCHEDULER_DATETIME_FORMAT = "N j, Y, f:s a"  # Default

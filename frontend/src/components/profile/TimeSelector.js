@@ -57,7 +57,7 @@ export function TimeSelector() {
           <h2>Schedule Your Journaling Reminders</h2>
           <TimePicker
             use12Hours
-            minuteStep={15}
+            //minuteStep={15}
             disabled={times.length > 2 ? true : false}
             format="h:mm a"
             onChange={onChange}

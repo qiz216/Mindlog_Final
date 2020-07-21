@@ -2,7 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from django.forms.models import model_to_dict
 from django.db.models import Q
 import json
-from datetime import datetime
+from datetime import datetime, time
+from dateutil.relativedelta import relativedelta
 from django.core.serializers.json import DjangoJSONEncoder
 from rest_framework.decorators import action
 from django.utils import timezone
@@ -30,10 +31,45 @@ class MessageViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         # when querying do /api/message?tag=blog
+        params = {'deleted': False}
         tag = self.request.GET.get('tag')
-        if tag != None:
-            return self.request.user.messages.filter(deleted=False, tag=tag)
-        return self.request.user.messages.filter(deleted=False)
+        if tag:
+            params['tag'] = tag
+        year = self.request.GET.get('year')
+        month = self.request.GET.get('month')
+        day = self.request.GET.get('day')
+        if year or month or day:
+            today = datetime.today()
+            start = {}
+            gap = {}
+            if year:
+                start['year'] = int(year)
+                gap = {'year':1}
+            else:
+                start['year'] = today.year
+
+            if month:
+                start['month'] = int(month)
+                gap = {'months':1}
+            else:
+                if day:
+                    start['month']  = today.month
+                else:
+                    start['month'] = 1
+
+            if day:
+                start['day'] = int(day)
+                gap = {'days': 1}
+            else:
+                start['day'] = 1
+            try:
+                start = datetime(**start)
+                end = start + relativedelta(**gap)
+                date_range = (start, end)
+                params['created_at__range'] = date_range
+            except:
+                pass
+        return self.request.user.messages.filter(**params)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -49,7 +85,7 @@ class MessageViewSet(viewsets.ModelViewSet):
     # patch/post
 
 
-@action(detail=True, methods=['get', 'patch'])
+@action(detail=True, methods=['get', 'patch', 'delete'])
 class UserViewSet(viewsets.ModelViewSet):
     # query set
     permission_classes = [
@@ -83,6 +119,7 @@ class TwilioAPI(APIView):
             wit_attr = wit.get_attributes()
             Message.objects.create(
                 owner=user,
+                title='phone text',
                 message=data['Body'],
                 twilio_msg_sid=data['MessageSid'],
                 tag=wit_attr['tag'],
@@ -106,6 +143,11 @@ class SchedulerViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Schedule.objects.filter(owner=self.request.user).all()
+
+    def list(self, request):
+        query_set = self.get_queryset()
+        return Response({'schedules': list(map(lambda x: x.schedule_time.strftime('%I:%M %p'), 
+                            query_set))}, status=status.HTTP_200_OK)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

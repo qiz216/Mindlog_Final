@@ -151,22 +151,3 @@ export const tokenConfig = (getState) => {
 
   return config;
 };
-
-export const tokenConfig2 = (getState) => {
-  //get token
-  const token = getState().authReducer.token;
-  //console.log(token);
-
-  //Headers
-  const config = {
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-  };
-
-  if (token) {
-    config.headers["Authorization"] = `Token ${token}`;
-  }
-
-  return config;
-};

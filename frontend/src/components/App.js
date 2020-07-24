@@ -12,6 +12,7 @@ import AlertTemplate from "react-alert-template-basic";
 
 import Header from "./layout/Header";
 import Dashboard from "./messages/Dashboard";
+import PreviousMessages from "./messages/PreviousMessages";
 import Profile from "./profile/Profile";
 import Login from "./users/Login";
 import Register from "./users/Register";
@@ -43,6 +44,11 @@ class App extends Component {
                 <Switch>
                   <PrivateRoute exact path="/" component={Dashboard} />
                   <PrivateRoute exact path="/profile" component={Profile} />
+                  <PrivateRoute
+                    exact
+                    path="/previous_messages"
+                    component={PreviousMessages}
+                  />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />
                 </Switch>

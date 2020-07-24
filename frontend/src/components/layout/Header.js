@@ -19,17 +19,23 @@ export class Header extends Component {
           <strong>{user ? `Welcome ${user.username}` : ""}</strong>
         </span>
         <li className="nav-item">
+          <Link to="/profile" className="nav-link">
+            Profile Page
+          </Link>
+        </li>
+        <li className="nav-item">
+          <Link to="/previous_messages" className="nav-link">
+            Previous Messages
+          </Link>
+        </li>
+
+        <li className="nav-item">
           <button
             onClick={this.props.logout}
             className="nav-link btn btn-info btn-sm text-light"
           >
             Logout
           </button>
-        </li>
-        <li className="nav-item">
-          <Link to="/profile" className="nav-link">
-            Profile Page
-          </Link>
         </li>
       </ul>
     );

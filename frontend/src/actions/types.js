@@ -14,3 +14,4 @@ export const REGISTER_FAIL = "REGISTER_FAIL";
 export const GET_TIMES = "GET_TIMES";
 export const DELETE_TIME = "DELETE_TIME";
 export const EDIT_USER = "EDIT_USER";
+export const ADD_TIME = "ADD_TIME";

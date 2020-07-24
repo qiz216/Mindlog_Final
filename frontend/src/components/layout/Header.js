@@ -23,6 +23,11 @@ export class Header extends Component {
             Profile Page
           </Link>
         </li>
+        <li className="nav-item">
+          <Link to="/previous_messages" className="nav-link">
+            Previous Messages
+          </Link>
+        </li>
 
         <li className="nav-item">
           <button

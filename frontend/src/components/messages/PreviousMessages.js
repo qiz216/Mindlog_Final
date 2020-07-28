@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Calendar, Badge } from "antd";
 import { func } from "prop-types";
+import { Redirect } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
 import { tokenConfig } from "../../actions/auth";
@@ -11,14 +12,18 @@ function PreviousMessages() {
   const [month, setMonth] = useState(moment().month() + 1);
   const [numRefThisMonth, setNumRefThisMonth] = useState(0);
   const [listOfRefsByDate, setListOfRefsByDate] = useState(new Map());
+  const [isLoading, setIsLoading] = useState(false);
+  const [dateSelected, setDateSelected] = useState(false);
+  const [selectedDay, seSelectedDay] = useState();
 
   useEffect(() => {
     console.log(`Month is ${month}`);
+    setIsLoading(true);
     axios
       .get(`/api/messages?month=${month}`, tokenConfig(store.getState))
       .then((res) => {
         setNumRefThisMonth(res.data.length);
-
+        //console.log(`Main data:: ${res}`);
         console.log(res);
 
         res.data.map((day) => {
@@ -27,46 +32,33 @@ function PreviousMessages() {
           if (listOfRefsByDate.has(dayNum)) {
             //setListOfRefsByDate(...listOfRefsByDate, dayNum : listOfRefsByDate.get(dayNum) + 1 );
             listOfRefsByDate.set(dayNum, listOfRefsByDate.get(dayNum) + 1);
+            console.log(listOfRefsByDate);
           } else {
             listOfRefsByDate.set(dayNum, 1);
+            console.log(listOfRefsByDate);
           }
         });
+
+        setIsLoading(false);
+        console.log("Loading is over");
         console.log(listOfRefsByDate);
       })
-      .catch((err) => console.log(err));
-  }, [month]);
-
-  function getListData(value) {
-    let listData;
-
-    switch (value.date()) {
-      case 11:
-        listData = [{ type: "success", content: "Reflections" }];
-        break;
-      case 20:
-        listData = [{ type: "success", content: "Reflections " }];
-        break;
-      case 22:
-        listData = [{ type: "success", content: "Reflections" }];
-        break;
-      default:
-    }
-    return listData || [];
-  }
+      .catch((err) => {
+        setIsLoading(false);
+        console.log(err);
+      });
+  }, []);
 
   function dateCellRender(value) {
-    //const listData = getListData(value);
     let listData = [];
-    if (listOfRefsByDate.has(15)) {
-      console.log("We got it");
-    }
-    console.log(`This is working ${listOfRefsByDate}`);
 
     if (listOfRefsByDate.has(value.date().toString())) {
       listData = [
         {
           type: "success",
-          content: `${listOfRefsByDate.get(value.date())} Reflections`,
+          content: `${listOfRefsByDate.get(
+            value.date().toString()
+          )} Reflections`,
         },
       ];
     } else {
@@ -84,8 +76,15 @@ function PreviousMessages() {
   }
 
   //when a date is selected
-  function onSelect(date) {
-    console.log(`The date is ${date.date()}`);
+  function onSelect(value) {
+    console.log(value);
+    if (listOfRefsByDate.has(value.date().toString())) {
+      console.log(`The date is ${value.date()}`);
+      setDateSelected(true);
+      seSelectedDay(value);
+    } else {
+      console.log("You did not write that day");
+    }
   }
   //this handles when we change the month
   function onPanelChange(date) {
@@ -93,14 +92,31 @@ function PreviousMessages() {
     setMonth(date.month() + 1);
     console.log(date.month());
   }
+
+  if (dateSelected) {
+    return (
+      <Redirect
+        push
+        to={{
+          pathname: "/previous_messages_specific_day",
+          state: { requestedDay: selectedDay },
+        }}
+      />
+    );
+    //return <Redirect to="previous_messages_specific_day" />;
+  }
   return (
     <div>
       <h3>You have {numRefThisMonth} reflections this month</h3>
-      <Calendar
-        dateCellRender={dateCellRender}
-        onPanelChange={onPanelChange}
-        onSelect={onSelect}
-      />
+      {isLoading ? (
+        <p>Loading...</p>
+      ) : (
+        <Calendar
+          dateCellRender={dateCellRender}
+          onPanelChange={onPanelChange}
+          onSelect={onSelect}
+        />
+      )}
     </div>
   );
 }

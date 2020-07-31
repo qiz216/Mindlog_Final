@@ -47,7 +47,7 @@ function PreviousMessages() {
         setIsLoading(false);
         console.log(err);
       });
-  }, []);
+  }, [month]);
 
   function dateCellRender(value) {
     let listData = [];
@@ -101,6 +101,8 @@ function PreviousMessages() {
 
   if (dateSelected) {
     //setDateSelected(false);
+    setDateSelected(false);
+
     return (
       <Redirect
         push

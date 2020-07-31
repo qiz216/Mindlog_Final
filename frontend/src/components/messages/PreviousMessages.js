@@ -101,7 +101,6 @@ function PreviousMessages() {
 
   if (dateSelected) {
     //setDateSelected(false);
-    setDateSelected(false);
 
     return (
       <Redirect

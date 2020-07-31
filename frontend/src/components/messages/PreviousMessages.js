@@ -14,7 +14,7 @@ function PreviousMessages() {
   const [listOfRefsByDate, setListOfRefsByDate] = useState(new Map());
   const [isLoading, setIsLoading] = useState(false);
   const [dateSelected, setDateSelected] = useState(false);
-  const [selectedDay, seSelectedDay] = useState();
+  const [selectedDay, setSelectedDay] = useState();
 
   useEffect(() => {
     console.log(`Month is ${month}`);
@@ -41,13 +41,13 @@ function PreviousMessages() {
 
         setIsLoading(false);
         console.log("Loading is over");
-        console.log(listOfRefsByDate);
+        //console.log(listOfRefsByDate);
       })
       .catch((err) => {
         setIsLoading(false);
         console.log(err);
       });
-  }, []);
+  }, [month]);
 
   function dateCellRender(value) {
     let listData = [];
@@ -77,23 +77,30 @@ function PreviousMessages() {
 
   //when a date is selected
   function onSelect(value) {
-    console.log(value);
-    if (listOfRefsByDate.has(value.date().toString())) {
-      console.log(`The date is ${value.date()}`);
-      setDateSelected(true);
-      seSelectedDay(value);
-    } else {
-      console.log("You did not write that day");
+    //console.log("hello");
+    if (value.month() + 1 == month) {
+      console.log(value);
+      if (listOfRefsByDate.has(value.date().toString())) {
+        console.log(`The date is ${value.date()}`);
+        setDateSelected(true);
+        setSelectedDay(value);
+
+        console.log(selectedDay);
+      } else {
+        console.log("You did not write that day");
+      }
     }
   }
   //this handles when we change the month
   function onPanelChange(date) {
+    console.log("Month changes");
     setListOfRefsByDate(new Map());
     setMonth(date.month() + 1);
-    console.log(date.month());
+    console.log(`The current month is ${date.month() + 1}`);
   }
 
   if (dateSelected) {
+    setDateSelected(false);
     return (
       <Redirect
         push
@@ -105,6 +112,7 @@ function PreviousMessages() {
     );
     //return <Redirect to="previous_messages_specific_day" />;
   }
+
   return (
     <div>
       <h3>You have {numRefThisMonth} reflections this month</h3>
@@ -115,6 +123,7 @@ function PreviousMessages() {
           dateCellRender={dateCellRender}
           onPanelChange={onPanelChange}
           onSelect={onSelect}
+          //defaultValue={onDefaultSelect}
         />
       )}
     </div>

@@ -27,10 +27,6 @@ export class Messages extends Component {
   }
 
   render() {
-    //const { location } = this.props;
-    //console.log(location);
-    //const { state } = location;
-    //console.log(state.requestedDay);
     return (
       <Fragment>
         <h2>Reflection List</h2>

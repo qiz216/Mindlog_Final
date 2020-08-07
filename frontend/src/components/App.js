@@ -22,6 +22,8 @@ import PrivateRoute from "./common/PrivateRoute";
 import { Provider } from "react-redux";
 import store from "../store";
 import { loadUser } from "../actions/auth";
+import DashNoForm from "./messages/DashNoForm";
+import Messages from "./messages/Messages";
 
 const alertOptions = {
   timeout: 3000,
@@ -48,6 +50,11 @@ class App extends Component {
                     exact
                     path="/previous_messages"
                     component={PreviousMessages}
+                  />
+                  <PrivateRoute
+                    exact
+                    path="/previous_messages_specific_day"
+                    component={Messages}
                   />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />

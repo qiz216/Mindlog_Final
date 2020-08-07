@@ -4,9 +4,13 @@ import { GET_MESSAGES, DELETE_MESSAGE, ADD_MESSAGE } from "./types.js";
 import { tokenConfig } from "./auth";
 
 //GET MESSAGES
-export const getMessages = () => (dispatch, getState) => {
+export const getMessages = (moment) => (dispatch, getState) => {
   axios
-    .get("/api/messages/", tokenConfig(getState))
+    .get(
+      `/api/messages?month=${moment.month() + 1}&day=${moment.date()}`,
+      tokenConfig(getState)
+    )
+    //.get("/api/messages/", tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_MESSAGES,

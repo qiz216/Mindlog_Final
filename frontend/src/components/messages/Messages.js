@@ -1,7 +1,8 @@
-import React, { Component, Fragment } from "react";
+import React, { Component, Fragment, useLocation } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { getMessages, deleteMessage } from "../../actions/messages";
+import moment from "moment";
 
 export class Messages extends Component {
   static propTypes = {
@@ -9,10 +10,22 @@ export class Messages extends Component {
     getMessages: PropTypes.func.isRequired,
     deleteMessage: PropTypes.func.isRequired,
   };
+  //location = useLocation();
 
   componentDidMount() {
-    this.props.getMessages();
+    //console.log(location);
+    const now = moment();
+    //console.log(now);
+    //console.log(this.props.location);
+    if (this.props.location) {
+      console.log(this.props.location.state);
+      const requestedDay = this.props.location.state.requestedDay;
+      this.props.getMessages(requestedDay);
+    } else {
+      this.props.getMessages(now);
+    }
   }
+
   render() {
     return (
       <Fragment>

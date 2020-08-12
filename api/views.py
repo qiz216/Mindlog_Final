@@ -146,9 +146,7 @@ class SchedulerViewSet(viewsets.ModelViewSet):
 
     def list(self, request):
         query_set = self.get_queryset()
-        for q in query_set:
-            q.schedule_time = q.schedule_time.strftime('%I:%M %p')
-        return Response({'schedule':query_set}, status=status.HTTP_200_OK)
+        return Response({'schedule':list(map(lambda x: {'id':x.id, 'time':x.schedule_time.strftime('%I:%M %p')},query_set))}, status=status.HTTP_200_OK)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

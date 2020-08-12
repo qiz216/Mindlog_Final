@@ -44,16 +44,16 @@ class MessageViewSet(viewsets.ModelViewSet):
             gap = {}
             if year:
                 start['year'] = int(year)
-                gap = {'year':1}
+                gap = {'year': 1}
             else:
                 start['year'] = today.year
 
             if month:
                 start['month'] = int(month)
-                gap = {'months':1}
+                gap = {'months': 1}
             else:
                 if day:
-                    start['month']  = today.month
+                    start['month'] = today.month
                 else:
                     start['month'] = 1
 
@@ -133,7 +133,7 @@ class TwilioAPI(APIView):
         return Response('', status=status.HTTP_400_BAD_REQUEST, content_type="text/xml")
 
 
-@action(detail=True, methods=['get', 'patch', 'post'])
+@action(detail=True, methods=['get', 'patch', 'post', 'delete'])
 class SchedulerViewSet(viewsets.ModelViewSet):
     # query set
     permission_classes = [
@@ -146,8 +146,12 @@ class SchedulerViewSet(viewsets.ModelViewSet):
 
     def list(self, request):
         query_set = self.get_queryset()
-        return Response({'schedules': list(map(lambda x: x.schedule_time.strftime('%I:%M %p'), 
-                            query_set))}, status=status.HTTP_200_OK)
+        final_set = list(
+            map(lambda x: {'id': x.id, 'time': x.schedule_time}, query_set))
+        final_set = sorted(final_set, key=lambda x: x['time'])
+        for f in final_set:
+            f['time'] = f['time'].strftime('%I:%M %p')
+        return Response({'schedule': final_set}, status=status.HTTP_200_OK)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

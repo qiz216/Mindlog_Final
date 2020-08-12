@@ -148,7 +148,7 @@ class SchedulerViewSet(viewsets.ModelViewSet):
         query_set = self.get_queryset()
         for q in query_set:
             q.schedule_time = q.schedule_time.strftime('%I:%M %p')
-        return Response(query_set, status=status.HTTP_200_OK)
+        return Response({'schedule':query_set}, status=status.HTTP_200_OK)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

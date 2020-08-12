@@ -133,7 +133,7 @@ class TwilioAPI(APIView):
         return Response('', status=status.HTTP_400_BAD_REQUEST, content_type="text/xml")
 
 
-@action(detail=True, methods=['get', 'patch', 'post'])
+@action(detail=True, methods=['get', 'patch', 'post', 'delete'])
 class SchedulerViewSet(viewsets.ModelViewSet):
     # query set
     permission_classes = [
@@ -146,8 +146,9 @@ class SchedulerViewSet(viewsets.ModelViewSet):
 
     def list(self, request):
         query_set = self.get_queryset()
-        return Response({'schedules': list(map(lambda x: x.schedule_time.strftime('%I:%M %p'), 
-                            query_set))}, status=status.HTTP_200_OK)
+        for q in query_set:
+            q.schedule_time = q.schedule_time.strftime('%I:%M %p')
+        return Response(query_set, status=status.HTTP_200_OK)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

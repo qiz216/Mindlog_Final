@@ -10,20 +10,17 @@ import store from "../../store";
 
 export function TimeSelector() {
   const [times, setTimes] = useState([]);
+  const [called, setCalled] = useState(false);
 
   useEffect(() => {
     axios
       .get("/api/scheduler/", tokenConfig(store.getState))
       .then((res) => {
         console.log(res.data);
-        res.data.map((time) => {
-          const stripped = time.schedule_time.substring(0, time.length - 1);
-          console.log(`The time is ${time.schedule_time}`);
-        });
-        //setTimes([...res.data]);
+        setTimes([...res.data.schedule]);
       })
       .catch((err) => console.log(err));
-  }, []);
+  }, [called]);
 
   const dispatch = useDispatch();
 
@@ -34,18 +31,23 @@ export function TimeSelector() {
       .post("/api/scheduler/", new_time, tokenConfig(store.getState))
       .then((res) => {
         dispatch(createPrompt({ addTime: "Time Added" }));
+        setCalled(!called);
       })
       .catch((err) => {
         console.log("THERE IS AN ERROR");
         console.log(err);
         //dispatch(returnErrors(err.response.data, err.response.status))
       });
-    //console.log(timeString);
-    setTimes([...times, timeString]);
   }
 
-  function handleDelete(idx) {
+  function handleDelete(backendID, idx) {
     const new_times = times.filter((time, id) => id !== idx);
+
+    axios
+      .delete(`/api/scheduler/${backendID}`, tokenConfig(store.getState))
+      .then((res) => console.log(res))
+      .catch((err) => console.log(err));
+
     console.log(`ID to delete is ${idx}`);
     console.log(`Times:: ${new_times}`);
     setTimes(new_times);
@@ -57,7 +59,7 @@ export function TimeSelector() {
           <h2>Schedule Your Journaling Reminders</h2>
           <TimePicker
             use12Hours
-            //minuteStep={15}
+            minuteStep={15}
             disabled={times.length > 2 ? true : false}
             format="h:mm a"
             onChange={onChange}
@@ -73,11 +75,11 @@ export function TimeSelector() {
             </thead>
             <tbody>
               {times.map((time, idx) => (
-                <tr key={idx}>
-                  <td>{time}</td>
+                <tr key={time.id}>
+                  <td>{time.time}</td>
                   <td>
                     <button
-                      onClick={() => handleDelete(idx)}
+                      onClick={() => handleDelete(time.id, idx)}
                       className="btn btn-danger btn-sm"
                     >
                       Delete

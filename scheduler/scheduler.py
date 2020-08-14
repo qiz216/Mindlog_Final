@@ -42,7 +42,7 @@ def start():
 
     scheduler.add_job(greeting_job, "cron", id="send_post",
                       # minute='0,12,13,14,15,16,51,52,53,54,55,56,57', replace_existing=True)
-                      minute='0', replace_existing=True)
+                      minute='0,15,30,45', replace_existing=True)
     # Add the scheduled jobs to the Django admin interface
     register_events(scheduler)
     scheduler.start()

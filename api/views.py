@@ -44,16 +44,16 @@ class MessageViewSet(viewsets.ModelViewSet):
             gap = {}
             if year:
                 start['year'] = int(year)
-                gap = {'year':1}
+                gap = {'year': 1}
             else:
                 start['year'] = today.year
 
             if month:
                 start['month'] = int(month)
-                gap = {'months':1}
+                gap = {'months': 1}
             else:
                 if day:
-                    start['month']  = today.month
+                    start['month'] = today.month
                 else:
                     start['month'] = 1
 

@@ -26,28 +26,21 @@ export class ProfileChanger extends Component {
     const new_username = e.target.username.value;
     const new_email = e.target.email.value;
     if (new_username && new_email) {
-      console.log(
-        `The new username is ${new_username} and the new email is ${new_email}`
-      );
       const new_info = { username: new_username, email: new_email };
       this.props.editUser(new_info);
-      //window.location.reload(false);
+      location.reload();
     } else if (new_username) {
-      console.log(`The new username is ${new_username}`);
       const new_info = { username: new_username };
       this.props.editUser(new_info);
-      //window.location.reload(false);
+      location.reload();
     } else if (new_email) {
-      console.log(`The new username is ${new_email}`);
       const new_info = { email: new_email };
       this.props.editUser(new_info);
-    } else {
-      console.log("Throw error, neither is changed");
+      location.reload();
     }
   };
-
+  // delete the user's account
   onDelete = () => {
-    console.log("DELETE");
     this.props.deleteUser();
     location.reload();
   };

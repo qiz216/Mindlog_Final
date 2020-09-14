@@ -19,8 +19,8 @@ class RegisterAPI(generics.GenericAPIView):
             "token": token
         })
 
-
 # login api
+
 
 class LoginAPI(generics.GenericAPIView):
 

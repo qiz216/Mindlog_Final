@@ -17,6 +17,7 @@ import Profile from "./profile/Profile";
 import Login from "./users/Login";
 import Register from "./users/Register";
 import Alerts from "./layout/Alerts";
+import About from "./layout/About";
 import PrivateRoute from "./common/PrivateRoute";
 
 import { Provider } from "react-redux";
@@ -56,6 +57,7 @@ class App extends Component {
                     path="/previous_messages_specific_day"
                     component={Messages}
                   />
+                  <PrivateRoute exact path="/about" component={About} />
                   <Route exact path="/register" component={Register} />
                   <Route exact path="/login" component={Login} />
                 </Switch>

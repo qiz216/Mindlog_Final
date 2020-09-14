@@ -2,7 +2,7 @@ import requests
 import os
 from datetime import datetime
 from django.utils import timezone
-WIT_TOKEN = "QPYVY5ZHHQBGKBCR6ESUSJQVLU2CIBMM"
+WIT_TOKEN = "use your own"
 
 
 class wit_analysis():

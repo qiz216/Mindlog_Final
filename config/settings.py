@@ -1,4 +1,17 @@
 import os
+SECRET_KEY = "(8s9+(et3y*e0qmtkrjmvn"
+
+# user files storage (profile picture)
+AWS_ACCESS_KEY_ID = "XOOJ2BR56G0QB1MOXD40"
+AWS_SECRET_ACCESS_KEY = "HzgIDCIanY7OK9VgCI0JNixBeCo2tL0aA3C3NyxB"
+AWS_STORAGE_BUCKET_NAME = "mindful-user-pic"
+AWS_S3_ENDPOINT_URL = "https://cellar-c2.services.clever-cloud.com"
+AWS_S3_REGION_NAME = "us-west-1"
+
+# email
+EMAIL_USER = "my.mindful.daily@gmail.com"
+EMAIL_PASSWORD = "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"
+
 
 # GENERAL
 # ------------------------------------------------------------------------------
@@ -7,7 +20,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # https://docs.djangoproject.com/en/dev/ref/settings/#std:setting-SECRET_KEY
 
 
-SECRET_KEY = os.environ["SECRET_KEY"]
+SECRET_KEY = SECRET_KEY
 # https://docs.djangoproject.com/en/dev/ref/settings/#debug
 DEBUG = True
 # https://docs.djangoproject.com/en/dev/ref/settings/#allowed-hosts
@@ -30,6 +43,7 @@ INSTALLED_APPS = [
     # Third-party
     'allauth',
     'allauth.account',
+    'allauth.socialaccount',
     'crispy_forms',
     # 'debug_toolbar',
     'twilio',
@@ -163,11 +177,11 @@ USE_TZ = True
 # free version has 100mb storage https://www.clever-cloud.com/en/pricing
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
 # CREDENTIALS
-AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
-AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
-AWS_STORAGE_BUCKET_NAME = os.environ["AWS_STORAGE_BUCKET_NAME"]
-AWS_S3_ENDPOINT_URL = os.environ["AWS_S3_ENDPOINT_URL"]
-AWS_S3_REGION_NAME = os.environ["AWS_S3_REGION_NAME"]
+AWS_ACCESS_KEY_ID = AWS_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = AWS_SECRET_ACCESS_KEY
+AWS_STORAGE_BUCKET_NAME = AWS_STORAGE_BUCKET_NAME
+AWS_S3_ENDPOINT_URL = AWS_S3_ENDPOINT_URL
+AWS_S3_REGION_NAME = AWS_S3_REGION_NAME
 AWS_DEFAULT_ACL = None
 # https://docs.djangoproject.com/en/dev/ref/settings/#static-root
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
@@ -261,8 +275,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = os.environ['EMAIL_USER']
-EMAIL_HOST_PASSWORD = os.environ['EMAIL_PASSWORD']
+EMAIL_HOST_USER = EMAIL_USER
+EMAIL_HOST_PASSWORD = EMAIL_PASSWORD
 
 # Scheduler
 # This scheduler config will:

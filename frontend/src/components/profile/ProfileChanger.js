@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { editUser } from "../../actions/auth";
+import { editUser, deleteUser } from "../../actions/auth";
 
 export class ProfileChanger extends Component {
   state = {
@@ -11,6 +11,7 @@ export class ProfileChanger extends Component {
   static propTypes = {
     auth: PropTypes.object.isRequired,
     editUser: PropTypes.func.isRequired,
+    deleteUser: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
@@ -43,6 +44,12 @@ export class ProfileChanger extends Component {
     } else {
       console.log("Throw error, neither is changed");
     }
+  };
+
+  onDelete = () => {
+    console.log("DELETE");
+    this.props.deleteUser();
+    location.reload();
   };
 
   render() {
@@ -78,6 +85,15 @@ export class ProfileChanger extends Component {
               </button>
             </div>
           </form>
+          <div className="form-group">
+            <button
+              onClick={this.onDelete}
+              type="submit"
+              className="btn btn-danger"
+            >
+              DELETE ACCOUNT
+            </button>
+          </div>
         </div>
       </div>
     );
@@ -87,4 +103,6 @@ const mapStateToProps = (state) => ({
   auth: state.authReducer,
 });
 
-export default connect(mapStateToProps, { editUser })(ProfileChanger);
+export default connect(mapStateToProps, { editUser, deleteUser })(
+  ProfileChanger
+);

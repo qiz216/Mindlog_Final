@@ -1,3 +1,6 @@
 node_modules
 .vscode
 db.sqlite3
+config/settings.py
+messenger/wit_analysis.py
+Pipfile.lock

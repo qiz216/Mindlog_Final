@@ -23,8 +23,8 @@ def greeting_job():
     now = timezone.localtime()
     print(now)
     print(timezone.localtime())
-    start = (now - timedelta(minutes=5)).time()
-    end = (now + timedelta(minutes=5)).time()
+    start = (now - timedelta(seconds=30)).time()
+    end = (now + timedelta(seconds=30)).time()
     schedules = Schedule.objects.filter(
         schedule_time__range=(start, end)).all()  #
     for sche in schedules:
@@ -42,7 +42,7 @@ def start():
 
     scheduler.add_job(greeting_job, "cron", id="send_post",
                       # minute='0,12,13,14,15,16,51,52,53,54,55,56,57', replace_existing=True)
-                      minute='0,15,30,45', replace_existing=True)
+                      minute='0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59', replace_existing=True)
     # Add the scheduled jobs to the Django admin interface
     register_events(scheduler)
     scheduler.start()

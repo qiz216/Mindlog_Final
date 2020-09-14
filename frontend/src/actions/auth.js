@@ -29,6 +29,29 @@ export const loadUser = () => (dispatch, getState) => {
       });
     });
 };
+export const deleteUser = () => (dispatch, getState) => {
+  console.log("SECOND DELETE USER");
+  axios
+    .delete(`/api/auth/user`, tokenConfig(getState))
+    .then((res) => {
+      //console.log("CREATE PROMPT");
+      //dispatch(createPrompt({ editUser: "Info Updated" }));
+      dispatch({
+        type: USER_LOADED,
+        payload: res.data,
+      });
+    })
+    .catch((err) => {
+      console.log(err);
+
+      dispatch(returnErrors(err.response.data, err.response.status));
+      /*
+    dispatch({
+      type: AUTH_ERROR,
+    });
+    */
+    });
+};
 export const editUser = (new_info) => (dispatch, getState) => {
   //const body = JSON.stringify({ username: "james" });
   //console.log(new_info);

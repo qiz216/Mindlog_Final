@@ -1,16 +1,16 @@
 import os
-SECRET_KEY = "(8s9+(et3y*e0qmtkrjmvn"
+SECRET_KEY = "use own credentials"
 
 # user files storage (profile picture)
-AWS_ACCESS_KEY_ID = "XOOJ2BR56G0QB1MOXD40"
-AWS_SECRET_ACCESS_KEY = "HzgIDCIanY7OK9VgCI0JNixBeCo2tL0aA3C3NyxB"
-AWS_STORAGE_BUCKET_NAME = "mindful-user-pic"
-AWS_S3_ENDPOINT_URL = "https://cellar-c2.services.clever-cloud.com"
+AWS_ACCESS_KEY_ID = "use own credentials"
+AWS_SECRET_ACCESS_KEY = "use own credentials"
+AWS_STORAGE_BUCKET_NAME = "use own credentials"
+AWS_S3_ENDPOINT_URL = "use own credentials"
 AWS_S3_REGION_NAME = "us-west-1"
 
 # email
 EMAIL_USER = "my.mindful.daily@gmail.com"
-EMAIL_PASSWORD = "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"
+EMAIL_PASSWORD = "use own credentials"
 
 
 # GENERAL

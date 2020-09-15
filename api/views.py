@@ -85,19 +85,9 @@ class MessageViewSet(viewsets.ModelViewSet):
     # patch/post
 
 
-@action(detail=True, methods=['get', 'patch', 'delete'])
-class UserViewSet(viewsets.ModelViewSet):
-    # query set
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
-    serializer_class = CustomUserSerializer
-
-    def get_queryset(self):
-        return CustomUser.objects.filter().all()
-
-
 # send messages just for testing
+
+
 class SendMessageView(APIView):
     def post(self, request, format=None):
         result = twilio_msg.send_msg(request.user)
@@ -107,6 +97,7 @@ class SendMessageView(APIView):
 
 
 # api post
+# wit attributes are for the next version
 class TwilioAPI(APIView):
     permission_classes = [AllowAny]
 
@@ -146,11 +137,12 @@ class SchedulerViewSet(viewsets.ModelViewSet):
 
     def list(self, request):
         query_set = self.get_queryset()
-        final_set = list(map(lambda x: {'id':x.id, 'time':x.schedule_time},query_set))
-        final_set = sorted(final_set, key = lambda x: x['time'])
+        final_set = list(
+            map(lambda x: {'id': x.id, 'time': x.schedule_time}, query_set))
+        final_set = sorted(final_set, key=lambda x: x['time'])
         for f in final_set:
             f['time'] = f['time'].strftime('%I:%M %p')
-        return Response({'schedule':final_set}, status=status.HTTP_200_OK)
+        return Response({'schedule': final_set}, status=status.HTTP_200_OK)
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)

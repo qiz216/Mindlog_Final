@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useLayoutEffect } from "react";
 import { Calendar, Badge } from "antd";
-import { func } from "prop-types";
 import { Redirect } from "react-router-dom";
 import moment from "moment";
 import axios from "axios";
@@ -16,10 +15,7 @@ function PreviousMessages() {
   const [dateSelected, setDateSelected] = useState(false);
   const [selectedDay, setSelectedDay] = useState();
 
-  console.log(`FROM COMPONENT::Month is ${currDate.month() + 1}`);
-
   useEffect(() => {
-    console.log(`FROM USE STATE::Month is ${currDate.month() + 1}`);
     setIsLoading(true);
     let tempState = {};
     axios
@@ -29,7 +25,6 @@ function PreviousMessages() {
       )
       .then((res) => {
         setNumRefThisMonth(res.data.length);
-        console.log(res);
 
         res.data.map((day) => {
           const dayNum = day.created_at.substring(8, 10);
@@ -45,7 +40,6 @@ function PreviousMessages() {
       })
       .catch((err) => {
         setIsLoading(false);
-        console.log(err);
       });
   }, [currDate]);
 
@@ -61,10 +55,15 @@ function PreviousMessages() {
       value.month() === currDate.month() &&
       value.year() === currDate.year()
     ) {
+      let reflectionString = "Reflection";
+      if (listOfRefsByDate[currDateRender] > 1) {
+        reflectionString = "Reflections";
+      }
+
       listData = [
         {
           type: "success",
-          content: `${listOfRefsByDate[currDateRender]} Reflections`,
+          content: `${listOfRefsByDate[currDateRender]} ${reflectionString}`,
         },
       ];
     }
@@ -81,42 +80,25 @@ function PreviousMessages() {
 
   //when a date is selected
   function onSelect(value) {
-    console.log(`FROM ON SELECT::Month is ${currDate.month() + 1}`);
-
     if (
       value.month() === currDate.month() &&
       value.year() === currDate.year()
     ) {
-      console.log(value);
-      //console.log(currDate);
       const currDateSelected =
         value.date() < 10
           ? "0" + value.date().toString()
           : value.date().toString();
       if (listOfRefsByDate.hasOwnProperty(currDateSelected)) {
-        //console.log(`The date is ${currDateSelected}`);
         setDateSelected(true);
         setSelectedDay(value);
-
-        console.log(selectedDay);
-      } else {
-        console.log("You did not write that day");
       }
     }
   }
   function onChange(value) {
-    console.log(`FROM ONCHANGE:: ${value}`);
     setCurrDate(value);
   }
 
-  //this handles when we change the month
-  function onPanelChange(date) {
-    console.log(date);
-    //setCurrDate(date);
-  }
-
   if (dateSelected) {
-    console.log("DATE WAS SELECTED");
     return (
       <Redirect
         push
@@ -130,13 +112,15 @@ function PreviousMessages() {
 
   return (
     <div>
-      <h3>You have {numRefThisMonth} reflections this month</h3>
+      <h3>
+        You have {numRefThisMonth}{" "}
+        {numRefThisMonth > 1 ? "Relections" : "Reflection"} this month
+      </h3>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
         <Calendar
           dateCellRender={dateCellRender}
-          //onPanelChange={onPanelChange}
           onChange={onChange}
           onSelect={onSelect}
           value={currDate}

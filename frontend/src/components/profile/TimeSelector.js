@@ -1,7 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import "antd/dist/antd.css";
 import { TimePicker } from "antd";
-//import { addTime } from "../../actions/times";
 import { createPrompt } from "../../actions/prompts";
 import { connect, useDispatch } from "react-redux";
 import axios from "axios";
@@ -16,7 +15,6 @@ export function TimeSelector() {
     axios
       .get("/api/scheduler/", tokenConfig(store.getState))
       .then((res) => {
-        console.log(res.data);
         setTimes([...res.data.schedule]);
       })
       .catch((err) => console.log(err));
@@ -25,7 +23,6 @@ export function TimeSelector() {
   const dispatch = useDispatch();
 
   function onChange(time, timeString) {
-    //console.log(time.format("H:mm"));
     const new_time = { schedule_time: time.format("H:mm") };
     axios
       .post("/api/scheduler/", new_time, tokenConfig(store.getState))
@@ -34,9 +31,7 @@ export function TimeSelector() {
         setCalled(!called);
       })
       .catch((err) => {
-        console.log("THERE IS AN ERROR");
         console.log(err);
-        //dispatch(returnErrors(err.response.data, err.response.status))
       });
   }
 
@@ -47,9 +42,6 @@ export function TimeSelector() {
       .delete(`/api/scheduler/${backendID}`, tokenConfig(store.getState))
       .then((res) => console.log(res))
       .catch((err) => console.log(err));
-
-    console.log(`ID to delete is ${idx}`);
-    console.log(`Times:: ${new_times}`);
     setTimes(new_times);
   }
   return (

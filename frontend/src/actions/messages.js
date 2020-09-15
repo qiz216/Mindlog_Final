@@ -10,7 +10,6 @@ export const getMessages = (moment) => (dispatch, getState) => {
       `/api/messages?month=${moment.month() + 1}&day=${moment.date()}`,
       tokenConfig(getState)
     )
-    //.get("/api/messages/", tokenConfig(getState))
     .then((res) => {
       dispatch({
         type: GET_MESSAGES,
@@ -38,7 +37,6 @@ export const deleteMessage = (id) => (dispatch, getState) => {
 
 //ADD MESSAGES
 export const addMessage = (message) => (dispatch, getState) => {
-  //console.log(message);
   axios
     .post("/api/messages/", message, tokenConfig(getState))
     .then((res) => {
@@ -52,7 +50,3 @@ export const addMessage = (message) => (dispatch, getState) => {
       dispatch(returnErrors(err.response.data, err.response.status))
     );
 };
-
-/*
- 
-*/

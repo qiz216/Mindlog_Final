@@ -33,6 +33,11 @@ export class Header extends Component {
             Previous Messages
           </Link>
         </li>
+        <li className="nav-item">
+          <Link to="/about" className="nav-link">
+            About Page
+          </Link>
+        </li>
 
         <li className="nav-item">
           <button
@@ -76,7 +81,7 @@ export class Header extends Component {
           </button>
           <div className="collapse navbar-collapse" id="navbarTogglerDemo01">
             <a className="navbar-brand" href="#">
-              Mindful App
+              Mindlog
             </a>
           </div>
           {isAuthenticated ? authLinks : guestLinks}

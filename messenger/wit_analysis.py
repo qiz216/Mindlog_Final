@@ -4,6 +4,8 @@ from datetime import datetime
 from django.utils import timezone
 WIT_TOKEN = "use your own"
 
+# FOR A FUTURE VERSION OF THE PROJECT
+
 
 class wit_analysis():
     """

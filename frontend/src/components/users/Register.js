@@ -45,69 +45,91 @@ export class Register extends Component {
 
     const { username, email, phone, password, password2 } = this.state;
     return (
-      <div className="col-md-6 m-auto">
-        <div className="card card-body mt-5">
-          <h2 className="text-center">Register</h2>
-          <form onSubmit={this.onSubmit}>
-            <div className="form-group">
-              <label>Username</label>
-              <input
-                type="text"
-                className="form-control"
-                name="username"
-                onChange={this.onChange}
-                value={username}
-              />
-            </div>
-            <div className="form-group">
-              <label>Email</label>
-              <input
-                type="email"
-                className="form-control"
-                name="email"
-                onChange={this.onChange}
-                value={email}
-              />
-            </div>
-            <div className="form-group">
-              <label>Phone (start with +1)</label>
-              <input
-                type="phone"
-                className="form-control"
-                name="phone"
-                onChange={this.onChange}
-                value={phone}
-              />
-            </div>
-            <div className="form-group">
-              <label>Password</label>
-              <input
-                type="password"
-                className="form-control"
-                name="password"
-                onChange={this.onChange}
-                value={password}
-              />
-            </div>
-            <div className="form-group">
-              <label>Confirm Password</label>
-              <input
-                type="password"
-                className="form-control"
-                name="password2"
-                onChange={this.onChange}
-                value={password2}
-              />
-            </div>
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary">
-                Register
-              </button>
-            </div>
+      <div>
+        <div className="col-md-6 m-auto">
+          <div className="card card-body mt-5">
+            <h2 className="text-center">Welcome To Mindlog</h2>
             <p>
-              Already have an account? <Link to="/login">Login</Link>
+              This is a side project created by James Botwina and Louis Zhao to
+              explore how SMS text messages can be used to remind users to write
+              micro-journal entries directly from thier phone's messaging
+              applicaiton.
             </p>
-          </form>
+            <strong>Please Note</strong>
+            <ul>
+              <li>You can delete your account on the Profile Tab</li>
+              <li>
+                You can sign up with a false email. There is no email
+                confirmation at this time. But use your real phone number to get
+                the text messages.
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="col-md-6 m-auto">
+          <div className="card card-body mt-5">
+            <h2 className="text-center">Register</h2>
+            <form onSubmit={this.onSubmit}>
+              <div className="form-group">
+                <label>Username</label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="username"
+                  onChange={this.onChange}
+                  value={username}
+                />
+              </div>
+              <div className="form-group">
+                <label>Email</label>
+                <input
+                  type="email"
+                  className="form-control"
+                  name="email"
+                  onChange={this.onChange}
+                  value={email}
+                />
+              </div>
+              <div className="form-group">
+                <label>Phone (start with +1)</label>
+                <input
+                  type="phone"
+                  className="form-control"
+                  name="phone"
+                  onChange={this.onChange}
+                  value={phone}
+                />
+              </div>
+              <div className="form-group">
+                <label>Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="password"
+                  onChange={this.onChange}
+                  value={password}
+                />
+              </div>
+              <div className="form-group">
+                <label>Confirm Password</label>
+                <input
+                  type="password"
+                  className="form-control"
+                  name="password2"
+                  onChange={this.onChange}
+                  value={password2}
+                />
+              </div>
+              <div className="form-group">
+                <button type="submit" className="btn btn-primary">
+                  Register
+                </button>
+              </div>
+              <p>
+                Already have an account? <Link to="/login">Login</Link>
+              </p>
+            </form>
+          </div>
         </div>
       </div>
     );

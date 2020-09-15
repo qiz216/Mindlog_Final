@@ -60,7 +60,8 @@ export class Register extends Component {
               <li>You can delete your account on the Profile Tab</li>
               <li>
                 You can sign up with a false email. There is no email
-                confirmation at this time.
+                confirmation at this time. But use your real phone number to get
+                the text messages.
               </li>
             </ul>
           </div>

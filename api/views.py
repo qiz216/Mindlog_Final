@@ -85,19 +85,9 @@ class MessageViewSet(viewsets.ModelViewSet):
     # patch/post
 
 
-@action(detail=True, methods=['get', 'patch', 'delete'])
-class UserViewSet(viewsets.ModelViewSet):
-    # query set
-    permission_classes = [
-        permissions.IsAuthenticated,
-    ]
-    serializer_class = CustomUserSerializer
-
-    def get_queryset(self):
-        return CustomUser.objects.filter().all()
-
-
 # send messages just for testing
+
+
 class SendMessageView(APIView):
     def post(self, request, format=None):
         result = twilio_msg.send_msg(request.user)

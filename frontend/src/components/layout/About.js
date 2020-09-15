@@ -10,8 +10,8 @@ export default class About extends Component {
             This is a side project created by James Botwina and Louis Zhao to
             explore how SMS text messages can be used to remind users to write
             micro-journal entries directly from thier phone's messaging
-            applicaiton. You can also add journal entries directly on the the
-            applicaiton's home page
+            applicaiton. You can also add journal entries on the the
+            applicaiton's home page.
           </p>
           <strong>How to Use the App</strong>
           <ul>
@@ -25,11 +25,15 @@ export default class About extends Component {
               Tab.
             </li>
             <li>
-              Within the Previous Messages Tab, you can click on the day and you
+              Within the Previous Messages Tab, you can click on a day and you
               will be taken to a page that has all the reflections from that
               day!
             </li>
-            <li>You can delete your account on the Profile Page.</li>
+            <li>
+              You can delete your account and all information on the Profile
+              Page.
+            </li>
+            <li>Use the Profile Page to change profile information.</li>
           </ul>
           <strong>Contact the Developers at</strong>
           <ul>

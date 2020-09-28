@@ -3,7 +3,7 @@
 ## Summary
 
 This is a side project created by James Botwina and Louis Zhao to explore how SMS text messages can be used to remind users to write micro-journal entries directly from thier phone's messaging applicaiton. You can also add journal entries on the the applicaiton's home page. We chose to build this application because we are interested in the creating productivity tools for consumers and internal teams alike. 
-You can find the deployment on [mymindlog.me](http://www.mymindlog.me).
+You can find the deployment on [mymindlog.me](https://www.mymindlog.me).
 
 # Web Stack
 We used React on the front end and Django on the back end because it is a popular stack among start ups. 
